@@ -13,5 +13,10 @@ All relevant dependencies and their versions can be found in: DynUAV.yml. To min
 ## Dataset Structure
 ```
 DynUAV-I/
-├──videos/  # Original video files (.mp4)
+├── videos/  # Original video files (.mp4)
+├── img_annos/
+|  ├── train/
+|  ├── val/
+|  ├── test/
 ```
+
