@@ -188,7 +188,7 @@ def UAVTrack112_analysis_step(args):
 
 def OUTS_analysis_step(args):
     # 1. 数据集总路径
-    dataset_input = f"G:/UAVBenchmark/OUR_DATASET/OUR_DATASET"
+    dataset_input = f"D:/BaiduNetdiskDownload/DynUAVI/img_anno/split"
     # 2. 标注文件路径
     anno_files = glob.glob(f"{dataset_input}/**/gt.txt",recursive=True)
     # 3. 我们数据集的数据列定义
@@ -209,7 +209,7 @@ def OUTS_analysis_step(args):
 
 def SportsMOT_analysis_entry(args):
     # 1. 数据集总路径
-    dataset_input = f"G:/UAVBenchmark/SportsMOT/SportsMOT_example/dataset"
+    dataset_input = f"D:/BaiduNetdiskDownload/DynUAVI/img_anno/split"
     
     # 2. 标注文件路径
     anno_files = glob.glob(f"{dataset_input}/**/*.txt",recursive=True)

@@ -250,7 +250,7 @@ def draw_hist(options):
     save_dir = options["save_dir"]
     img_name = options["img_name"]
     
-    if not vars:
+    if not is_valid_array(vars):
         with open(f"{save_dir}/{img_name}.csv", "a") as f:
             f.write("\n")
             f.write("max,min,avg,std,sum\n")
@@ -414,6 +414,11 @@ def draw_bar(options):
         }
     )
     df.to_csv(os.path.join(save_dir, f"{img_name}.csv"),index=False)
+
+
+def is_valid_array(arr):
+    """检查数组是否有效（非空且不包含NaN）"""
+    return arr.size > 0 and not np.isnan(arr).any()
     
     
 ################################# part 4: 画每个ID每帧边界框相对于第一帧的变换分布 ####################################
