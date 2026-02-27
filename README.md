@@ -3,7 +3,7 @@ This repository contains the source code for the statistical analysis of the cha
 
 # For Code
 ## Environmental requirements
-All relevant dependencies and their versions can be found in: DynUAV.yml. To minimize potential issues, please ensure you use the following versions:
+All relevant dependencies and their versions can be found in: environment.yaml. To minimize potential issues, please ensure you use the following versions:
 * matplotlib=3.10.0
 * python=3.12.9
 * numpy=2.0.1
