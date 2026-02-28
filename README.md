@@ -37,9 +37,11 @@ Each sequence folder under ```train/val/test``` follows the MOTChallenge-style f
 DynUAV follows the standard MOTChallenge annotation format.
 
 #### Ground Truth (```gt.txt```)
-Each line corresponds to one object instance in one frame:
+Each line corresponds to one object instance in one frame.  
+All annotations are frame-based, while the order of `frame_id` and `object_id` may vary across different sequences.
+Each entry contains the following fields:
 ```
-frame_id, object_id, x, y, width, height, conf, class, visibility, unused
+frame_id/object_id, frame_id/object_id, x, y, width, height, conf, class, visibility, unused
 ```
 * ```(x,y)```denotes the top-left coordinate of the bounding box.
 * Bounding boxes are defined in pixel coordinates.
