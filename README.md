@@ -39,6 +39,7 @@ DynUAV follows the standard MOTChallenge annotation format.
 #### Ground Truth (```gt.txt```)
 Each line corresponds to one object instance in one frame.  
 All annotations are frame-based, while the order of `frame_id` and `object_id` may vary across different sequences.
+Users are advised to read the first two fields dynamically when parsing the annotations.
 Each entry contains the following fields:
 ```
 frame_id/object_id, frame_id/object_id, x, y, width, height, conf, class, visibility, unused
