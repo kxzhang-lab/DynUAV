@@ -3,12 +3,15 @@ This repository contains the source code for the statistical analysis of the cha
 
 # For Code
 ## Environmental requirements
-All relevant dependencies and their versions can be found in: environment.yaml. You can create environment by ```conda env create -f environment.yaml``` and use ```conda activate 虚拟环境名``` to entry the environment. To minimize potential issues, please ensure you use the following versions:
-* matplotlib=3.10.0
-* python=3.12.9
-* numpy=2.0.1
-* opencv-python=4.11.0.86
-* pandas=2.2.3
+The statistical analysis scripts were tested under the following environment:
+* matplotlib 3.10.0
+* python 3.12.9
+* numpy 2.0.1
+* opencv-python 4.11.0.86
+* pandas 2.2.3
+  
+These scripts are lightweight and do not require a dedicated conda environment. 
+Using the above versions is recommended to ensure reproducibility.
 
 ## Dataset 
 ### Dataset Structure
