@@ -184,5 +184,8 @@ C. Trajectory-level Statistics
 - Proportion of non-overlapping adjacent frames (IoU = 0)
 - Total displacement per object (sum of adjacent-frame displacements)
 
+### Core Dataset Characteristics
+
+
   
 
