@@ -1,16 +1,69 @@
 # DynUAV
 This repository contains the source code for the statistical analysis of the challenging characteristics of the DynUAV dataset.
 
-# For Code
-## Environmental requirements
-All relevant dependencies and their versions can be found in: DynUAV.yml. To minimize potential issues, please ensure you use the following versions:
-* matplotlib=3.10.0
-* python=3.12.9
-* numpy=2.0.1
-* opencv-python=4.11.0.86
-* pandas=2.2.3
+## Dataset
+### Overview
+DynUAV is a UAV-perspective MOT benchmark designed to evaluate tracking robustness under aggressive camera motion. Unlike ground-view scenarios, aerial platforms introduce large viewpoint variations, rapid ego-motion, and abrupt inter-frame displacement.
 
-## Dataset 
+#### Representative Scenarios
+
+1. Viewpoint Transition under UAV Maneuver
+   
+<div align="center">
+<!-- 图片组整体居中 -->
+<div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+    <div style="text-align: center;">
+        <img src="./images/Viewpoint_Transition/frame_000613.png" width="330"/>
+        <img src="./images/Viewpoint_Transition/frame_000775.png" width="330"/>
+        <img src="./images/Viewpoint_Transition/frame_000919.png" width="330"/>
+    </div>
+</div>
+<em>Figure 1: Continuous viewpoint transition caused by aggressive yaw/pitch maneuvers.</em>
+</div>
+
+2. Motion Blur under Rapid Turning
+   
+<div align="center">
+   <img src="./images/motion_blur/frame.png" 
+     alt="Severe motion blur example" 
+     title="Severe motion blur induced by abrupt camera rotation." 
+     width="500"/>
+   <br/>
+   <em>Figure 2: Severe motion blur induced by abrupt camera rotation.</em>
+</div>
+
+3. Large inter-frame object displacement
+
+
+   
+4. Long-term trajectory interruption
+
+<div align="center">
+<!-- 图片组整体居中 -->
+<div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+    <div style="text-align: center;">
+        <img src="./images/Occlusion/frame_001341.png" width="500"/>
+        <img src="./images/Occlusion/frame_001461.png" width="500"/>
+    </div>
+</div>
+<em>Figure 4: Target disappearance and long-term re-entry across distant frames.</em>
+</div>
+   
+5. Scale variation caused by altitude change
+
+<div align="center">
+<!-- 图片组整体居中 -->
+<div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+    <div style="text-align: center;">
+        <img src="./images/Scale_Variation/frame_001132.png" width="500"/>
+        <img src="./images/Scale_Variation/frame_001176.png" width="500"/>
+    </div>
+</div>
+<em>Figure 5: Rapid scale variation due to altitude and viewpoint change.</em>
+</div>
+   
+6. Multi-object interaction under dynamic motion
+   
 ### Dataset Structure
 ```
 DynUAV-I/
@@ -34,9 +87,12 @@ Each sequence folder under ```train/val/test``` follows the MOTChallenge-style f
 DynUAV follows the standard MOTChallenge annotation format.
 
 #### Ground Truth (```gt.txt```)
-Each line corresponds to one object instance in one frame:
+Each line corresponds to one object instance in one frame. 
+All annotations are frame-based, while the order of `frame_id` and `object_id` may vary across different sequences.
+Users are advised to read the first two fields dynamically when parsing the annotations.
+Each entry contains the following fields:
 ```
-frame_id, object_id, x, y, width, height, conf, class, visibility, unused
+frame_id/object_id, object_id/frame_id, x, y, width, height, conf, class, visibility, unused
 ```
 * ```(x,y)```denotes the top-left coordinate of the bounding box.
 * Bounding boxes are defined in pixel coordinates.
@@ -50,5 +106,18 @@ Contains sequence-level information such as:
 * Frame rate
 * Sequence length
 * Image resolution
+
+# For Code
+## Environmental requirements
+The statistical analysis scripts were tested under the following environment:
+* matplotlib 3.10.0
+* python 3.12.9
+* numpy 2.0.1
+* opencv-python 4.11.0.86
+* pandas 2.2.3
+
+These scripts are lightweight and do not require a dedicated conda environment. 
+Using the above versions is recommended to ensure reproducibility.
+
   
 
