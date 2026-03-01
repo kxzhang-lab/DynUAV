@@ -3,7 +3,19 @@ This repository contains the source code for the statistical analysis of the cha
 
 ## Dataset
 ### Overview
+DynUAV is a UAV-perspective MOT benchmark designed to evaluate tracking robustness under aggressive camera motion. Unlike ground-view scenarios, aerial platforms introduce large viewpoint variations, rapid ego-motion, and abrupt inter-frame displacement.
 
+#### Representative Scenarios
+1. Sudden yaw and pitch rotations
+   
+2. Large inter-frame object displacement
+   
+3. Long-term trajectory interruption
+   
+4. Scale variation caused by altitude change
+   
+5. Multi-object interaction under dynamic motion
+   
 ### Dataset Structure
 ```
 DynUAV-I/
