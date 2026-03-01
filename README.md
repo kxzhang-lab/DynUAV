@@ -81,6 +81,17 @@ DynUAV is a UAV-perspective MOT benchmark designed to evaluate tracking robustne
    <br/>
    <em>Figure 2: Severe motion blur induced by abrupt camera rotation.</em>
 </div>
+
+#### Dataset Scale
+* **42** video sequences
+* **37893** annotated frames
+* **1747618** total object instances
+* Resolutions up to **1920×1080**
+* Official **train / val / test** splits
+
+#### Design Focus
+While existing UAV benchmarks often emphasize detection under small-object or low-resolution conditions, 
+DynUAV highlights long-term association robustness under complex ego-motion and maneuver-induced viewpoint changes.
    
 ### Dataset Structure
 ```
@@ -125,8 +136,8 @@ Contains sequence-level information such as:
 * Sequence length
 * Image resolution
 
-# For Code
-## Environmental requirements
+## For Code
+### Environmental requirements
 The statistical analysis scripts were tested under the following environment:
 * matplotlib 3.10.0
 * python 3.12.9
