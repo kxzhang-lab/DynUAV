@@ -3,12 +3,15 @@ This repository contains the source code for the statistical analysis of the cha
 
 # For Code
 ## Environmental requirements
-All relevant dependencies and their versions can be found in: DynUAV.yml. To minimize potential issues, please ensure you use the following versions:
-* matplotlib=3.10.0
-* python=3.12.9
-* numpy=2.0.1
-* opencv-python=4.11.0.86
-* pandas=2.2.3
+The statistical analysis scripts were tested under the following environment:
+* matplotlib 3.10.0
+* python 3.12.9
+* numpy 2.0.1
+* opencv-python 4.11.0.86
+* pandas 2.2.3
+  
+These scripts are lightweight and do not require a dedicated conda environment. 
+Using the above versions is recommended to ensure reproducibility.
 
 ## Dataset 
 ### Dataset Structure
@@ -34,9 +37,12 @@ Each sequence folder under ```train/val/test``` follows the MOTChallenge-style f
 DynUAV follows the standard MOTChallenge annotation format.
 
 #### Ground Truth (```gt.txt```)
-Each line corresponds to one object instance in one frame:
+Each line corresponds to one object instance in one frame.  
+All annotations are frame-based, while the order of `frame_id` and `object_id` may vary across different sequences.
+Users are advised to read the first two fields dynamically when parsing the annotations.
+Each entry contains the following fields:
 ```
-frame_id, object_id, x, y, width, height, conf, class, visibility, unused
+frame_id/object_id, frame_id/object_id, x, y, width, height, conf, class, visibility, unused
 ```
 * ```(x,y)```denotes the top-left coordinate of the bounding box.
 * Bounding boxes are defined in pixel coordinates.
