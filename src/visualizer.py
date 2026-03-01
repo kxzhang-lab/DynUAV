@@ -538,7 +538,6 @@ def visualize_bbox_trend(bbox_id_idx,column_defs,dataset_name,save_dir):
             cv2.imwrite(str(save_path / f"{id}_{img_pattern}"),img)
     
 ################################### part 5: 可视化VisDrone的标签至图像 ################################# 
-    
 class AnnoVisualizer:
     def __init__(self,anno_paths,column_defs,dataset_name):
         """
@@ -554,7 +553,7 @@ class AnnoVisualizer:
             category_mapping, _ = analyze_xml_categories(anno_paths)
             self.annotations = load_annotations_xml(anno_path,column_defs,category_mapping)
         else: 
-            self.annotations = load_annotations_txt(anno_path,column_defs)
+            self.annotations = load_annotations_txt(anno_path,column_defs, dataset_name)
         self.column_defs = column_defs
         self.dataset_name = dataset_name
         self._validate_annotations()
@@ -700,6 +699,9 @@ def visualize_dataset(anno_paths,save_dir,column_defs,dataset_name):
     try:
         # 1. 初始化VisDrone的可视化类
         dataset_visualize = AnnoVisualizer(anno_paths,column_defs,dataset_name)
+        if not dataset_visualize.annotations:
+            print("没有有效的标注信息可供可视化！")
+            return
         
         # 创建保存文件夹
         save_dir = save_dir / "visualized_frames"

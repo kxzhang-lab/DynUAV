@@ -359,13 +359,14 @@ def load_UAV123_annos(UAV123_anno,aggre_anno_dir):
 
 
 ################################# 实验 4: 针对VIsDrone数据集进行加载 ###############################
-def load_annotations_txt(anno_path,column_defs):
+def load_annotations_txt(anno_path, column_defs, dataset_name):
     """
     brief:
       安全加载.txt标注文件，自动跳过不完整行。
     args:
       anno_path:标注文件绝对路径
       column_defs:标注定义列
+      dataset_name:数据集名称（用于特殊处理）
     return:
       返回结构化NumPy数组，各列独立类型
     """
@@ -383,6 +384,12 @@ def load_annotations_txt(anno_path,column_defs):
                 valid_lines.append(line)
     
     # 转换为结构化数组
+    if dataset_name == "OURS":
+        # OURS数据集有些视频frame、id...，有些视频又是id、frame...，因此需要特殊处理一下。
+        video_name = Path(anno_path).parts[-3].split('_')[-1]
+        column_defs = detect_column_defs(valid_lines,video_name)
+        if column_defs is None:
+            return np.array([],dtype=None)
     dtype = np.dtype(column_defs)
     try:
         data = np.genfromtxt(
@@ -416,6 +423,62 @@ def group_by_column(annotations,col_name):
         key = anno[col_name]
         groups.setdefault(key, []).append(anno)
     return groups
+
+
+def detect_column_defs(valid_lines,video_name):
+    """
+    根据数据内容自动判断标注格式是 (frame, id, ...) 还是 (id, frame, ...)
+    通过统计第一列的变化次数来判断。
+    """
+    # 1. 取前100行作为样本，如果不足则取全部
+    sample_lines = valid_lines[:min(100, len(valid_lines))]
+    first_col_values = []
+    
+    for line in sample_lines:
+        parts = line.split(',')
+        if len(parts) >= 1:
+            try:
+                first_col_values.append(int(parts[0].strip()))
+            except ValueError:
+                # 如果转换失败，可能是其他格式，返回默认
+                print("警告：无法解析第一列为整数，默认使用 (frame, id, ...)")
+                return [
+                    ('frame', 'i4'), ('id', 'i4'),
+                    ('x', 'f4'), ('y', 'f4'), ('w', 'f4'), ('h', 'f4'),
+                    ('confidence', 'i4'), ('class', 'i4'), ('visibility', 'f4')
+                ]
+
+    if len(first_col_values) < 2:
+        print(f"警告：视频{video_name}样本数量不足，无法判断frame，id的顺序")
+        return None
+
+    # 2. 统计第一列值发生变化的次数
+    change_count = 0
+    for i in range(1, len(first_col_values)):
+        if first_col_values[i] != first_col_values[i-1]:
+            change_count += 1
+
+    # 3. 计算变化比例
+    change_ratio = change_count / (len(first_col_values) - 1)
+    
+    # 4. 设置一个阈值，例如 0.5
+    #    - 如果变化比例低 (<0.5)，说明是 frame (换帧时才变)
+    #    - 如果变化比例高 (>=0.5)，说明是 id (变化频繁)
+    threshold = 0.5
+    if change_ratio < threshold:
+        #print(f"视频 {video_name} 的第一列变化比例为 {change_ratio:.2f}，判断为 (frame, id, ...)")
+        return [
+            ('frame', 'i4'), ('id', 'i4'),
+            ('x', 'f4'), ('y', 'f4'), ('w', 'f4'), ('h', 'f4'),
+            ('confidence', 'i4'), ('class', 'i4'), ('visibility', 'f4')
+        ]
+    else:
+        #print(f"视频 {video_name} 的第一列变化比例为 {change_ratio:.2f}，判断为 (id, frame, ...)")
+        return [
+            ('id', 'i4'), ('frame', 'i4'),
+            ('x', 'f4'), ('y', 'f4'), ('w', 'f4'), ('h', 'f4'),
+            ('confidence', 'i4'), ('class', 'i4'), ('visibility', 'f4')
+        ]
 
 
 ######################################## # 补充：MDMT数据集的标注文件为.xml文件 ######################################

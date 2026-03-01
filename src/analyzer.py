@@ -371,11 +371,14 @@ def bbox_dense_analyze(anno_files,save_dir,column_defs,dataset_name):
         if dataset_name == "MDMT":
             anno = load_annotations_xml(anno_file,column_defs,category_mapping)
         else:
-            anno = load_annotations_txt(anno_file,column_defs)
+            anno = load_annotations_txt(anno_file,column_defs,dataset_name)
             
         try:
             get_video_resolution(anno_file,dataset_name)
         except Exception as _:
+            continue
+
+        if len(anno) == 0:
             continue
           
         annos.append(anno)
@@ -547,11 +550,13 @@ class TrajectoryStatistic:
             if self.dataset_name == "MDMT":
                 anno = load_annotations_xml(anno_file,column_defs,self.category_mapping)
             else:
-                anno = load_annotations_txt(anno_file,column_defs)
+                anno = load_annotations_txt(anno_file,column_defs,self.dataset_name)
                 
             try:
                 get_video_resolution(anno_file,self.dataset_name)
             except Exception as _:
+                continue
+            if len(anno) == 0:
                 continue
                   
             anno = remove_nan_entries_cons(anno)
@@ -864,7 +869,7 @@ def UAV123_analysis():
     
     
 ######################################### part 7:MOT任务数据集的总体分析框架 #########################################
-def MOT_analysis_entry(dataset_input,anno_files,column_defs,dataset_name,args):
+def MOT_analysis_entry(dataset_input,anno_files,column_defs,dataset_name,is_show):
     """
     brief:
       MOT任务的数据集分析入口。
@@ -874,7 +879,7 @@ def MOT_analysis_entry(dataset_input,anno_files,column_defs,dataset_name,args):
       anno_files (list(str)): 所有标注文件的入口路径
       column_defs: 标注的列定义
       dataset_name (str): 数据集名称 
-      args:传入的参数列表
+      is_show:是否展示中间结果
     """
     # 1. 构建结果保存文件夹路径
     save_dir = Path(os.path.dirname(dataset_input)) / "result"
@@ -885,11 +890,11 @@ def MOT_analysis_entry(dataset_input,anno_files,column_defs,dataset_name,args):
     if has_split:
         for category,sub_files in split_dict.items():
             options = split_dirs[category],sub_files,dataset_name,category,\
-                      args.show_process,save_dir,column_defs
+                      is_show,save_dir,column_defs
             MOT_analysis_steps(options)
     # 2.2 不管可不可拆，都让整个数据集进行统计特性的分析 
     options = [dataset_input],anno_files,dataset_name,"all",\
-              args.show_process,save_dir,column_defs
+              is_show,save_dir,column_defs
     MOT_analysis_steps(options)
         
         
