@@ -963,7 +963,7 @@ def visualize_traj(anno_ids,save_dir,dataset_name,column_defs,
         if category_mapping:
             all_anno = load_annotations_xml(anno_file,column_defs,category_mapping)
         else:
-            all_anno = load_annotations_txt(anno_file,column_defs)
+            all_anno = load_annotations_txt(anno_file,column_defs, dataset_name)
         all_anno = remove_nan_entries_cons(all_anno)
         
         # 3. 从文件路径获取视频绝对路径
