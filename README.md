@@ -32,9 +32,18 @@ DynUAV is a UAV-perspective MOT benchmark designed to evaluate tracking robustne
    <em>Figure 2: Severe motion blur induced by abrupt camera rotation.</em>
 </div>
 
-3. Large inter-frame object displacement
+3. Fast inter-frame displacement
 
-
+<div align="center">
+<!-- 图片组整体居中 -->
+<div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+    <div style="text-align: center;">
+        <img src="./images/Large_Displacement/frame_001133.png" width="500"/>
+        <img src="./images/Large_Displacement/frame_001134.png" width="500"/>
+    </div>
+</div>
+<em>Figure 3: Large inter-frame displacement under high-speed UAV motion.</em>
+</div>
    
 4. Long-term trajectory interruption
 
@@ -63,6 +72,15 @@ DynUAV is a UAV-perspective MOT benchmark designed to evaluate tracking robustne
 </div>
    
 6. Multi-object interaction under dynamic motion
+
+<div align="center">
+   <img src="./images/Multi-interaction/frame_000027.png" 
+     alt="Dense multi-object interaction" 
+     title="Dense multi-object interaction with bounding box overlap." 
+     width="500"/>
+   <br/>
+   <em>Figure 2: Severe motion blur induced by abrupt camera rotation.</em>
+</div>
    
 ### Dataset Structure
 ```
