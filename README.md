@@ -7,7 +7,7 @@ DynUAV is a UAV-perspective MOT benchmark designed to evaluate tracking robustne
 
 #### Representative Scenarios
 1. Motion Blur under Rapid Turning
-   ![Severe motion blur induced by abrupt camera rotation.](D:\Users\xdche\MOV\MOV_dataset\yejintao\challenge\motion_blur\91\frame_000938.png) 
+   ![motion_blur](./images/motion_blur/frame.png "Severe motion blur induced by abrupt camera rotation.") 
 2. Large inter-frame object displacement
    
 3. Long-term trajectory interruption
