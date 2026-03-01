@@ -197,7 +197,7 @@ These metrics collectively characterize motion severity.
 | Dataset    | Mean IoU(%)| IoU Variance(%) | Non-Overlap Ratio(%) |
 |------------|------------|-----------------|----------------------|
 | DynUAV     | 74.44    | 29.34        | 1.62             |
-| MDMT       | 74.44    | 29.34        | 1.62             |
+| MDMT       | 79.57    | 17.78        | 0.0818           |
 | UAVDT      | XX.XX    | XX.XX        | XX.XX            |
 | VisDrone   | XX.XX    | XX.XX        | XX.XX            |
 | MOT17      | XX.XX    | XX.XX        | XX.XX            |
@@ -236,7 +236,7 @@ This characteristic is captured by:
 | Dataset   | Mean Segments per ID | Variance(%) | Max Segments per ID | Min Segments per ID |
 |------------|----------------------|----------|----------------------|----------------------|
 | DynUAV     | 1.2391               | 68.80    |8                     |1                     |
-| MDMT       | 1.2391               | 68.80    | XX.XX               | XX.XX               |
+| MDMT       | 1.0161               | 13.34    |3                     |1                     |
 | UAVDT      | XX.XX               | XX.XX    | XX.XX               | XX.XX               |
 | VisDrone   | XX.XX               | XX.XX    | XX.XX               | XX.XX               |
 | MOT17      | XX.XX               | XX.XX    | XX.XX               | XX.XX               |
