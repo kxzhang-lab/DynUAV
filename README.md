@@ -190,13 +190,17 @@ DynUAV exhibits severe inter-frame motion caused by UAV maneuvers.
 This is quantitatively reflected by:
  * Adjacent-frame IoU statistics
  * Proportion of non-overlapping adjacent frames (IoU = 0)
- * Total object displacement
 These metrics collectively characterize motion severity.
 
-3. Long Temporal Span
+2. Long Temporal Span
+Objects in DynUAV often reappear after long temporal gaps.
+This property is measured using:   
+ * Trajectory interval statistics
    
-4. Frequent Trajectory Fragmentation
-
+3. Frequent Trajectory Fragmentation
+Trajectories are frequently interrupted due to dynamic viewpoint changes and occlusion.
+This characteristic is captured by:
+ * Number of continuous trajectory segments per object
 
   
 
