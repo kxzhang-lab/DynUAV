@@ -27,7 +27,7 @@ DynUAV is a UAV-perspective MOT benchmark designed to evaluate tracking robustne
    <img src="./images/motion_blur/frame.png" 
      alt="Severe motion blur example" 
      title="Severe motion blur induced by abrupt camera rotation." 
-     width="330"/>
+     width="500"/>
    <br/>
    <em>Figure 2: Severe motion blur induced by abrupt camera rotation.</em>
 </div>
@@ -42,8 +42,8 @@ DynUAV is a UAV-perspective MOT benchmark designed to evaluate tracking robustne
 <!-- 图片组整体居中 -->
 <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
     <div style="text-align: center;">
-        <img src="./images/Occlusion/frame_001341.png" width="330"/>
-        <img src="./images/Occlusion/frame_001461.png" width="330"/>
+        <img src="./images/Occlusion/frame_001341.png" width="500"/>
+        <img src="./images/Occlusion/frame_001461.png" width="500"/>
     </div>
 </div>
 <em>Figure 4: Target disappearance and long-term re-entry across distant frames.</em>
@@ -55,24 +55,14 @@ DynUAV is a UAV-perspective MOT benchmark designed to evaluate tracking robustne
 <!-- 图片组整体居中 -->
 <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
     <div style="text-align: center;">
-        <img src="./images/Scale_Variation/frame_001132.png" width="330"/>
-        <img src="./images/Scale_Variation/frame_001176.png" width="330"/>
+        <img src="./images/Scale_Variation/frame_001132.png" width="500"/>
+        <img src="./images/Scale_Variation/frame_001176.png" width="500"/>
     </div>
 </div>
 <em>Figure 5: Rapid scale variation due to altitude and viewpoint change.</em>
 </div>
    
 6. Multi-object interaction under dynamic motion
-
-<div align="center">
-<!-- 图片组整体居中 -->
-<div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
-    <div style="text-align: center;">
-        <img src="./images/Multi-interaction/frame_000027.png" width="330"/>
-    </div>
-</div>
-<em>Figure 5: Rapid scale variation due to altitude and viewpoint change.</em>
-</div>
    
 ### Dataset Structure
 ```
