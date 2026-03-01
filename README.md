@@ -148,5 +148,18 @@ The statistical analysis scripts were tested under the following environment:
 These scripts are lightweight and do not require a dedicated conda environment. 
 Using the above versions is recommended to ensure reproducibility.
 
+### How to Run
+The statistical analysis can be launched via:
+#### Command-line Arguments
+- `--dataset_name {UAV123, VisDrone, UAVDT, MDMT, MOT20, MOT17, DanceTrack, SportsMOT, DBT70, NAT2021, UAVTrack112, OURS}`  
+  Specifies which dataset to analyze.  
+  The default value is `OURS` (DynUAV).
+- ```--show_process {True/False}```  
+  Whether to visualize intermediate results during analysis, including:
+  - Sampled annotation visualization
+  - Adjacent-frame non-overlap (IoU=0) visualization
+  - Object trajectory visualization
+Set ```--show_process False``` for faster execution without visualization.
+
   
 
