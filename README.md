@@ -246,5 +246,12 @@ This characteristic is captured by:
 
 Table 3. Continuous Trajectory Segment Statistics (Mean ± Variance)
 
+The average number of continuous trajectory segments per object reflects how frequently identities are interrupted. 
+A higher mean value indicates that objects are more frequently fragmented, posing greater re-identification difficulty.
+
+The variance further characterizes the distribution spread of fragmentation levels. 
+A larger variance suggests heterogeneous trajectory behaviors — 
+some objects are frequently interrupted, while others remain relatively stable.
+
   
 
