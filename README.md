@@ -200,9 +200,9 @@ These metrics collectively characterize motion severity.
 | MDMT       | 79.57    | 17.78        | 0.0818           |
 | UAVDT      | 91.97    | 8.92        | 0.0329            |
 | VisDrone   | 84.21    | 21.84        | 0.6375            |
-| MOT17      | XX.XX    | XX.XX        | XX.XX            |
-| MOT20      | XX.XX    | XX.XX        | XX.XX            |
-| DanceTrack | XX.XX    | XX.XX        | XX.XX            |
+| MOT17      | 93.83    | 12.15        | 0.0466            |
+| MOT20      | 95.95    | 3.85        | 0            |
+| DanceTrack | 89.05    | 9.34        | 0.001            |
 | SportsMOT  | 77.72    | 16.89        | 0.0413           |
 
 Table 1. Adjacent-Frame IoU Statistics and Non-Overlap Ratio.
@@ -220,9 +220,9 @@ This property is measured using:
 | MDMT     | 99.99        | 96.30    | 549            |  11          |
 | UAVDT      | 99.87        | 125.16    | 512           |  6          |
 | VisDrone   | 90.67        | 119.40    | 503           |  3          |
-| MOT17      | XX.XX        | XX.XX    | XX           |  XX          |
-| MOT20      | XX.XX        | XX.XX    | XX           |  XX          |
-| DanceTrack | XX.XX        | XX.XX    | XX           |  XX          |
+| MOT17      |  -        | -    | -           |  -          |
+| MOT20      | -        | -    | -           |  -          |
+| DanceTrack | 11.52        | 18.90    | 247           |  2          |
 | SportsMOT  | 112.81       | 155.92   | 630          |  2           |
 
 Table 2. Trajectory Interval Statistics
@@ -239,9 +239,9 @@ This characteristic is captured by:
 | MDMT       | 1.0161               | 13.34    |3                     |1                     |
 | UAVDT      | 1.03               | 19.39    | 4               | 1               |
 | VisDrone   | 1.0437               | 23.70    | 9               | 1               |
-| MOT17      | XX.XX               | XX.XX    | XX.XX               | XX.XX               |
-| MOT20      | XX.XX               | XX.XX    | XX.XX               | XX.XX               |
-| DanceTrack | XX.XX               | XX.XX    | XX.XX               | XX.XX               |
+| MOT17      | 1               | 0    | 1               | 1               |
+| MOT20      | 1               | 0    | 1               | 1               |
+| DanceTrack | 5.02               | 547.69   | 49               | 1               |
 | SportsMOT  | 1.7380               | 1.0249    |5                   | 1                 |
 
 Table 3. Continuous Trajectory Segment Statistics (Mean ± Variance)
