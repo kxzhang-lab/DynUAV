@@ -194,17 +194,57 @@ This is quantitatively reflected by:
  * Proportion of non-overlapping adjacent frames (IoU = 0)
 These metrics collectively characterize motion severity.
 
+| Dataset    | Mean IoU(%)| IoU Variance(%) | Non-Overlap Ratio(%) |
+|------------|------------|-----------------|----------------------|
+| DynUAV     | 74.44    | 29.34        | 1.62             |
+| MDMT       | 74.44    | 29.34        | 1.62             |
+| UAVDT      | XX.XX    | XX.XX        | XX.XX            |
+| VisDrone   | XX.XX    | XX.XX        | XX.XX            |
+| MOT17      | XX.XX    | XX.XX        | XX.XX            |
+| MOT20      | XX.XX    | XX.XX        | XX.XX            |
+| DanceTrack | XX.XX    | XX.XX        | XX.XX            |
+| SportsMOT  | 77.72    | 16.89        | 0.0413           |
+
+Table 1. Adjacent-Frame IoU Statistics and Non-Overlap Ratio.
+Non-Overlap Ratio denotes the percentage of adjacent-frame object pairs with no overlap region.
+
 #### Long Temporal Span
    
 Objects in DynUAV often reappear after long temporal gaps.
 This property is measured using:   
  * Trajectory interval statistics
+
+| Dataset   | Mean Interval | Variance | Max Interval | Min Interval |
+|------------|--------------|----------|--------------|--------------|
+| DynUAV     | 142.22        | 228.40    | 1666           |  2          |
+| MDMT     | 99.99        | 96.30    | 549            |  11          |
+| UAVDT      | XX.XX        | XX.XX    | XX           |  XX          |
+| VisDrone   | XX.XX        | XX.XX    | XX           |  XX          |
+| MOT17      | XX.XX        | XX.XX    | XX           |  XX          |
+| MOT20      | XX.XX        | XX.XX    | XX           |  XX          |
+| DanceTrack | XX.XX        | XX.XX    | XX           |  XX          |
+| SportsMOT  | 112.81       | 155.92   | 630          |  2           |
+
+Table 2. Trajectory Interval Statistics
    
 #### Frequent Trajectory Fragmentation
    
 Trajectories are frequently interrupted due to dynamic viewpoint changes and occlusion.
 This characteristic is captured by:
  * Number of continuous trajectory segments per object
+
+| Dataset   | Mean Segments per ID | Variance(%) | Max Segments per ID | Min Segments per ID |
+|------------|----------------------|----------|----------------------|----------------------|
+| DynUAV     | 1.2391               | 68.80    |8                     |1                     |
+| MDMT       | 1.2391               | 68.80    | XX.XX               | XX.XX               |
+| UAVDT      | XX.XX               | XX.XX    | XX.XX               | XX.XX               |
+| VisDrone   | XX.XX               | XX.XX    | XX.XX               | XX.XX               |
+| MOT17      | XX.XX               | XX.XX    | XX.XX               | XX.XX               |
+| MOT20      | XX.XX               | XX.XX    | XX.XX               | XX.XX               |
+| DanceTrack | XX.XX               | XX.XX    | XX.XX               | XX.XX               |
+| SportsMOT  | 1.7380               | 1.0249    |5                   | 1                 |
+
+Table 3. Continuous Trajectory Segment Statistics (Mean ± Variance)
 
   
 
