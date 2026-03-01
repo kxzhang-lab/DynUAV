@@ -1,19 +1,9 @@
 # DynUAV
 This repository contains the source code for the statistical analysis of the challenging characteristics of the DynUAV dataset.
 
-# For Code
-## Environmental requirements
-The statistical analysis scripts were tested under the following environment:
-* matplotlib 3.10.0
-* python 3.12.9
-* numpy 2.0.1
-* opencv-python 4.11.0.86
-* pandas 2.2.3
+## Dataset
+### Overview
 
-These scripts are lightweight and do not require a dedicated conda environment. 
-Using the above versions is recommended to ensure reproducibility.
-
-## Dataset 
 ### Dataset Structure
 ```
 DynUAV-I/
@@ -56,5 +46,18 @@ Contains sequence-level information such as:
 * Frame rate
 * Sequence length
 * Image resolution
+
+# For Code
+## Environmental requirements
+The statistical analysis scripts were tested under the following environment:
+* matplotlib 3.10.0
+* python 3.12.9
+* numpy 2.0.1
+* opencv-python 4.11.0.86
+* pandas 2.2.3
+
+These scripts are lightweight and do not require a dedicated conda environment. 
+Using the above versions is recommended to ensure reproducibility.
+
   
 
