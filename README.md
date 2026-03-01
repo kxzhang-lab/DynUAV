@@ -198,8 +198,8 @@ These metrics collectively characterize motion severity.
 |------------|------------|-----------------|----------------------|
 | DynUAV     | 74.44    | 29.34        | 1.62             |
 | MDMT       | 79.57    | 17.78        | 0.0818           |
-| UAVDT      | XX.XX    | XX.XX        | XX.XX            |
-| VisDrone   | XX.XX    | XX.XX        | XX.XX            |
+| UAVDT      | 91.97    | 8.92        | 0.0329            |
+| VisDrone   | 84.21    | 21.84        | 0.6375            |
 | MOT17      | XX.XX    | XX.XX        | XX.XX            |
 | MOT20      | XX.XX    | XX.XX        | XX.XX            |
 | DanceTrack | XX.XX    | XX.XX        | XX.XX            |
@@ -218,8 +218,8 @@ This property is measured using:
 |------------|--------------|----------|--------------|--------------|
 | DynUAV     | 142.22        | 228.40    | 1666           |  2          |
 | MDMT     | 99.99        | 96.30    | 549            |  11          |
-| UAVDT      | XX.XX        | XX.XX    | XX           |  XX          |
-| VisDrone   | XX.XX        | XX.XX    | XX           |  XX          |
+| UAVDT      | 99.87        | 125.16    | 512           |  6          |
+| VisDrone   | 90.67        | 119.40    | 503           |  3          |
 | MOT17      | XX.XX        | XX.XX    | XX           |  XX          |
 | MOT20      | XX.XX        | XX.XX    | XX           |  XX          |
 | DanceTrack | XX.XX        | XX.XX    | XX           |  XX          |
@@ -237,8 +237,8 @@ This characteristic is captured by:
 |------------|----------------------|----------|----------------------|----------------------|
 | DynUAV     | 1.2391               | 68.80    |8                     |1                     |
 | MDMT       | 1.0161               | 13.34    |3                     |1                     |
-| UAVDT      | XX.XX               | XX.XX    | XX.XX               | XX.XX               |
-| VisDrone   | XX.XX               | XX.XX    | XX.XX               | XX.XX               |
+| UAVDT      | 1.03               | 19.39    | 4               | 1               |
+| VisDrone   | 1.0437               | 23.70    | 9               | 1               |
 | MOT17      | XX.XX               | XX.XX    | XX.XX               | XX.XX               |
 | MOT20      | XX.XX               | XX.XX    | XX.XX               | XX.XX               |
 | DanceTrack | XX.XX               | XX.XX    | XX.XX               | XX.XX               |
