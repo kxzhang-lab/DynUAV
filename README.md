@@ -6,8 +6,8 @@ This repository contains the source code for the statistical analysis of the cha
 DynUAV is a UAV-perspective MOT benchmark designed to evaluate tracking robustness under aggressive camera motion. Unlike ground-view scenarios, aerial platforms introduce large viewpoint variations, rapid ego-motion, and abrupt inter-frame displacement.
 
 #### Representative Scenarios
-1. Sudden yaw and pitch rotations
-   
+1. Motion Blur under Rapid Turning
+   ![Severe motion blur induced by abrupt camera rotation.](D:\Users\xdche\MOV\MOV_dataset\yejintao\challenge\motion_blur\91\frame_000938.png) 
 2. Large inter-frame object displacement
    
 3. Long-term trajectory interruption
