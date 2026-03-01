@@ -68,7 +68,7 @@ DynUAV is a UAV-perspective MOT benchmark designed to evaluate tracking robustne
 <!-- 图片组整体居中 -->
 <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
     <div style="text-align: center;">
-        <img src="./images/Multi-interaction/frame_000027.png" width="500"/>
+        <img src="./images/Multi-interaction/frame_000027.png" width="330"/>
     </div>
 </div>
 <em>Figure 5: Rapid scale variation due to altitude and viewpoint change.</em>
