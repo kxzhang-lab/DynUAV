@@ -882,7 +882,7 @@ def get_image_name_pattern(dataset_name,frame_dleta,frame_num):
     elif "UAVTrack112" == dataset_name:
         img_pattern = f"{(frame_num + frame_dleta):05d}.jpg"
     elif "OURS" == dataset_name:
-        img_pattern = f"frame_{(frame_num + frame_dleta):06d}.png"
+        img_pattern = f"frame_{(frame_num + frame_dleta):06d}.jpg"
     return img_pattern
     
 

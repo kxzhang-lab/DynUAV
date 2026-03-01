@@ -7,7 +7,7 @@ from src import *
 def parse_args():
     parser = argparse.ArgumentParser(description="A simple script to demonstrate argument parsing.")
     parser.add_argument("--show_process",type=bool,help="The flag to visualize the intermediate results is.",
-                        default=False)
+                        default=True)
     parser.add_argument("--dataset",type=str,help="The dataset to be analyzed.",
                         default="OURS",choices=DATASET_REGISTRY.keys())
     args = parser.parse_args()

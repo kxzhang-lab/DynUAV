@@ -558,10 +558,13 @@ class TrajectoryStatistic:
                 continue
             if len(anno) == 0:
                 continue
-                  
+      
             anno = remove_nan_entries_cons(anno)
             annos_and_files["anno_file"].append(anno_file)
             annos_and_files["anno"].append(anno)
+            if self.is_show:
+                self.video_path,self.frame_dleta = \
+                    get_frame_dleta(anno,anno_file,self.dataset_name)
             
         # 2. 将每组视频文件下每个ID的轨迹间断数、持续时间和运动总位移
         all_traj_num,all_lief_long,all_dist,all_iou,all_gap = [],[],[],[],[]
@@ -771,6 +774,8 @@ class TrajectoryStatistic:
             iou = self.calculate_bbox_iou(bbox_cur,bbox_next)
             if np.isnan(iou):
                 continue
+            if self.is_show and iou < -1e-7:
+                self.debug_nan_iou(anno[i],anno[i+1])
             ious.append(iou)
         # 3. 计算IOU均值
         return np.array(ious)
@@ -884,14 +889,14 @@ def MOT_analysis_entry(dataset_input,anno_files,column_defs,dataset_name,is_show
     # 1. 构建结果保存文件夹路径
     save_dir = Path(os.path.dirname(dataset_input)) / "result"
     # 2. 考察该数据集是否为可拆分为valid、train和test子集的数据集
-    split_dict,split_dirs,has_split = get_dataset_split_paths( \
-        dataset_input,anno_files)
+    # split_dict,split_dirs,has_split = get_dataset_split_paths( \
+    #     dataset_input,anno_files)
     # 2.1 如果可拆，那么每个数据子集分别进行统计特性的分析。
-    if has_split:
-        for category,sub_files in split_dict.items():
-            options = split_dirs[category],sub_files,dataset_name,category,\
-                      is_show,save_dir,column_defs
-            MOT_analysis_steps(options)
+    # if has_split:
+    #     for category,sub_files in split_dict.items():
+    #         options = split_dirs[category],sub_files,dataset_name,category,\
+    #                   is_show,save_dir,column_defs
+    #         MOT_analysis_steps(options)
     # 2.2 不管可不可拆，都让整个数据集进行统计特性的分析 
     options = [dataset_input],anno_files,dataset_name,"all",\
               is_show,save_dir,column_defs
