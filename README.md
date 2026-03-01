@@ -6,15 +6,63 @@ This repository contains the source code for the statistical analysis of the cha
 DynUAV is a UAV-perspective MOT benchmark designed to evaluate tracking robustness under aggressive camera motion. Unlike ground-view scenarios, aerial platforms introduce large viewpoint variations, rapid ego-motion, and abrupt inter-frame displacement.
 
 #### Representative Scenarios
-1. Motion Blur under Rapid Turning
-   ![motion_blur](./images/motion_blur/frame.png "Severe motion blur induced by abrupt camera rotation.") 
-2. Large inter-frame object displacement
+
+1. Viewpoint Transition under UAV Maneuver
    
-3. Long-term trajectory interruption
+<div align="center">
+<!-- 图片组整体居中 -->
+<div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+    <div style="text-align: center;">
+        <img src="./images/Viewpoint_Transition/frame_000613.png" width="330"/>
+        <img src="./images/Viewpoint_Transition/frame_000775.png" width="330"/>
+        <img src="./images/Viewpoint_Transition/frame_000919.png" width="330"/>
+    </div>
+</div>
+<em>Figure 1: Continuous viewpoint transition caused by aggressive yaw/pitch maneuvers.</em>
+</div>
+
+2. Motion Blur under Rapid Turning
    
-4. Scale variation caused by altitude change
+<div align="center">
+   <img src="./images/motion_blur/frame.png" 
+     alt="Severe motion blur example" 
+     title="Severe motion blur induced by abrupt camera rotation." 
+     width="500"/>
+   <br/>
+   <em>Figure 2: Severe motion blur induced by abrupt camera rotation.</em>
+</div>
+
+3. Large inter-frame object displacement
+
+
    
-5. Multi-object interaction under dynamic motion
+4. Long-term trajectory interruption
+
+<div align="center">
+<!-- 图片组整体居中 -->
+<div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+    <div style="text-align: center;">
+        <img src="./images/Occlusion/frame_001341.png" width="500"/>
+        <img src="./images/Occlusion/frame_001461.png" width="500"/>
+    </div>
+</div>
+<em>Figure 4: Target disappearance and long-term re-entry across distant frames.</em>
+</div>
+   
+5. Scale variation caused by altitude change
+
+<div align="center">
+<!-- 图片组整体居中 -->
+<div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+    <div style="text-align: center;">
+        <img src="./images/Scale_Variation/frame_001132.png" width="500"/>
+        <img src="./images/Scale_Variation/frame_001176.png" width="500"/>
+    </div>
+</div>
+<em>Figure 5: Rapid scale variation due to altitude and viewpoint change.</em>
+</div>
+   
+6. Multi-object interaction under dynamic motion
    
 ### Dataset Structure
 ```
