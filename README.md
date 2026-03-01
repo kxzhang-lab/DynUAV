@@ -185,19 +185,23 @@ C. Trajectory-level Statistics
  - Total displacement per object (sum of adjacent-frame displacements)
 
 ### Core Dataset Characteristics
-1. Aggressive Maneuver-Induced Motion
+
+#### Aggressive Maneuver-Induced Motion
+
 DynUAV exhibits severe inter-frame motion caused by UAV maneuvers.
 This is quantitatively reflected by:
  * Adjacent-frame IoU statistics
  * Proportion of non-overlapping adjacent frames (IoU = 0)
 These metrics collectively characterize motion severity.
 
-2. Long Temporal Span
+#### Long Temporal Span
+   
 Objects in DynUAV often reappear after long temporal gaps.
 This property is measured using:   
  * Trajectory interval statistics
    
-3. Frequent Trajectory Fragmentation
+#### Frequent Trajectory Fragmentation
+   
 Trajectories are frequently interrupted due to dynamic viewpoint changes and occlusion.
 This characteristic is captured by:
  * Number of continuous trajectory segments per object
