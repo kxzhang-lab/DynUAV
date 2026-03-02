@@ -13,9 +13,9 @@ DynUAV is a UAV-perspective MOT benchmark designed to evaluate tracking robustne
 <!-- 图片组整体居中 -->
 <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
     <div style="text-align: center;">
-        <img src="./images/Viewpoint_Transition/frame_000613.png" width="330"/>
-        <img src="./images/Viewpoint_Transition/frame_000775.png" width="330"/>
-        <img src="./images/Viewpoint_Transition/frame_000919.png" width="330"/>
+        <img src="./images/Viewpoint_Transition/frame_000613.png" width="300"/>
+        <img src="./images/Viewpoint_Transition/frame_000775.png" width="300"/>
+        <img src="./images/Viewpoint_Transition/frame_000919.png" width="300"/>
     </div>
 </div>
 <em>Figure 1: Continuous viewpoint transition caused by aggressive yaw/pitch maneuvers.</em>
@@ -27,7 +27,7 @@ DynUAV is a UAV-perspective MOT benchmark designed to evaluate tracking robustne
    <img src="./images/motion_blur/frame.png" 
      alt="Severe motion blur example" 
      title="Severe motion blur induced by abrupt camera rotation." 
-     width="500"/>
+     width="450"/>
    <br/>
    <em>Figure 2: Severe motion blur induced by abrupt camera rotation.</em>
 </div>
@@ -38,8 +38,8 @@ DynUAV is a UAV-perspective MOT benchmark designed to evaluate tracking robustne
 <!-- 图片组整体居中 -->
 <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
     <div style="text-align: center;">
-        <img src="./images/Large_Displacement/frame_001133.png" width="500"/>
-        <img src="./images/Large_Displacement/frame_001134.png" width="500"/>
+        <img src="./images/Large_Displacement/frame_001133.png" width="450"/>
+        <img src="./images/Large_Displacement/frame_001134.png" width="450"/>
     </div>
 </div>
 <em>Figure 3: Large inter-frame displacement under high-speed UAV motion.</em>
@@ -51,8 +51,8 @@ DynUAV is a UAV-perspective MOT benchmark designed to evaluate tracking robustne
 <!-- 图片组整体居中 -->
 <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
     <div style="text-align: center;">
-        <img src="./images/Occlusion/frame_001341.png" width="500"/>
-        <img src="./images/Occlusion/frame_001461.png" width="500"/>
+        <img src="./images/Occlusion/frame_001341.png" width="450"/>
+        <img src="./images/Occlusion/frame_001461.png" width="450"/>
     </div>
 </div>
 <em>Figure 4: Target disappearance and long-term re-entry across distant frames.</em>
@@ -64,8 +64,8 @@ DynUAV is a UAV-perspective MOT benchmark designed to evaluate tracking robustne
 <!-- 图片组整体居中 -->
 <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
     <div style="text-align: center;">
-        <img src="./images/Scale_Variation/frame_001132.png" width="500"/>
-        <img src="./images/Scale_Variation/frame_001176.png" width="500"/>
+        <img src="./images/Scale_Variation/frame_001132.png" width="450"/>
+        <img src="./images/Scale_Variation/frame_001176.png" width="450"/>
     </div>
 </div>
 <em>Figure 5: Rapid scale variation due to altitude and viewpoint change.</em>
@@ -77,7 +77,7 @@ DynUAV is a UAV-perspective MOT benchmark designed to evaluate tracking robustne
    <img src="./images/Multi-interaction/frame_000027.png" 
      alt="Dense multi-object interaction" 
      title="Dense multi-object interaction with bounding box overlap." 
-     width="500"/>
+     width="450"/>
    <br/>
    <em>Figure 2: Severe motion blur induced by abrupt camera rotation.</em>
 </div>
