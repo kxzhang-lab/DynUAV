@@ -3,6 +3,7 @@ This repository contains the source code for the statistical analysis of the cha
 
 ## For Code
 ### Environmental requirements
+The statistical analysis scripts were tested under the following environment:
 * matplotlib 3.10.0
 * python 3.12.9
 * numpy 2.0.1
