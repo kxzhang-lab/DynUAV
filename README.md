@@ -79,7 +79,7 @@ DynUAV is a UAV-perspective MOT benchmark designed to evaluate tracking robustne
      title="Dense multi-object interaction with bounding box overlap." 
      width="450"/>
    <br/>
-   <em>Figure 2: Severe motion blur induced by abrupt camera rotation.</em>
+   <em>Complex multi-object interactions under dynamic camera motion.</em>
 </div>
 
 #### Dataset Scale
