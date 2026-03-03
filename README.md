@@ -10,6 +10,9 @@ The statistical analysis scripts were tested under the following environment:
 * opencv-python 4.11.0.86
 * pandas 2.2.3
 
+These scripts are lightweight and do not require a dedicated conda environment. 
+Using the above versions is recommended to ensure reproducibility.
+
 
   
 
