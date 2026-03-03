@@ -13,6 +13,9 @@ The statistical analysis scripts were tested under the following environment:
 These scripts are lightweight and do not require a dedicated conda environment. 
 Using the above versions is recommended to ensure reproducibility.
 
+### How to Run
+The statistical analysis can be launched via:
+
 
   
 
