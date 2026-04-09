@@ -319,7 +319,7 @@ DATASET_REGISTRY = {
     },
     "OURS":{
         "entry": OUTS_analysis_step,
-        "path": f"D:/BaiduNetdiskDownload/DynUAVI/img_anno/split"
+        "path": f"G:/UAVBenchmark/OUR_DATASET/DynUAVI/split"
     },
 }
     

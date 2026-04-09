@@ -451,6 +451,15 @@ def detect_column_defs(valid_lines,video_name):
     if len(first_col_values) < 2:
         print(f"警告：视频{video_name}样本数量不足，无法判断frame，id的顺序")
         return None
+    
+    # 特殊情况：026视频的第一列全是-1，个人理解为该视频只有一个ID。因此第一列是ID，第二列是frame。
+    if all(val == -1 for val in first_col_values):
+        print(f"视频 {video_name} 的第一列全为-1，判断为 (id, frame, ...)")
+        return [
+            ('id', 'i4'), ('frame', 'i4'),
+            ('x', 'f4'), ('y', 'f4'), ('w', 'f4'), ('h', 'f4'),
+            ('confidence', 'i4'), ('class', 'i4'), ('visibility', 'f4')
+        ]
 
     # 2. 统计第一列值发生变化的次数
     change_count = 0
@@ -741,7 +750,7 @@ def get_video_resolution(anno_file,dataset_name):
     img = cv2.imread(img_files[0])
     height, width, _ = img.shape
     res = {"H":height,"W":width}
-    return res
+    return res,video_path
 
 
 def get_frame_dleta(anno,anno_file,dataset_name):

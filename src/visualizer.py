@@ -23,12 +23,13 @@ from .loader import \
     get_video_name
 
 ######################## part 1： 绘制帧数量的分布直方图         #######################
-def draw_frame_hist(all_frame_counts,save_dir):
+def draw_frame_hist(all_frame_counts,video_names,save_dir):
     """
       brief:
           绘制帧数量的分布直方图
       Args:
           all_frame_counts (list): 所有视频帧数量的列表
+          video_names (list): 所有视频的名称列表
           save_dir (str): 保存结果的文件夹路径
     """
     # 1. 绘制帧数量的分布直方图
@@ -50,6 +51,7 @@ def draw_frame_hist(all_frame_counts,save_dir):
     frame_options = {
         "vars": all_frame_counts,
         "bins": video_pos,
+        "x_tricks": video_names,
         "x_label": "Video Index",
         "y_label": "Frame Count",
         "title": "Frame Count of Each Video",
@@ -376,6 +378,7 @@ def draw_bar(options):
       {
         "vars": numpy of shape(n,), 例如：vars为每个视频的总长度构成的数组
         "bins": numpy of shape(n,), 例如：bins为每个视频的相应序号
+        "x_tricks": list, x轴刻度标签
         "x_label": str，x轴标签
         "y_label": str，y轴标签
         "title": str，直方图标题
@@ -387,6 +390,7 @@ def draw_bar(options):
     # 1. 获取参数
     vars = options["vars"]
     bins = options["bins"]
+    x_tricks = options.get("x_tricks", None)
     x_label = options["x_label"]
     y_label = options["y_label"]
     title = options["title"]
@@ -396,12 +400,13 @@ def draw_bar(options):
     # 2. 画图
     plt.figure(figsize=(10,6))
     plt.bar(bins, vars)
+
+    if x_tricks is not None:
+        plt.xticks(bins, x_tricks, rotation=45, ha='right')
     
     plt.xlabel(x_label)
     plt.ylabel(y_label)
     plt.title(title)
-    
-    plt.xticks(bins)
     
     plt.savefig(os.path.join(save_dir, f"{img_name}.png"))
     plt.close()
@@ -722,19 +727,21 @@ def visualize_dataset(anno_paths,save_dir,column_defs,dataset_name):
     
 
 ######################### part 6: 做样本在数据集中分布密集程度的统计性实验 #########################
-def visualize_bbox_dense_video(sample_counts,ID_counts,save_dir):
+def visualize_bbox_dense_video(sample_counts,ID_counts,video_names,save_dir):
     """
       brief:
         画出每组视频包含的样本数目、ID数目的条形图
       args:
         sample_counts:每组视频的样本数
         ID_counts:每组视频的ID数
+        video_names:每组视频的名称
         save_dir:结果保存文件夹
     """
     video_pos = np.arange(len(sample_counts)) + 1
     frame_options = {
         "vars": sample_counts,
         "bins": video_pos,
+        "x_tricks": video_names,
         "x_label": "Video Index",
         "y_label": "Sample Count",
         "title": "Sample Count of Each Video",
@@ -748,6 +755,7 @@ def visualize_bbox_dense_video(sample_counts,ID_counts,save_dir):
     frame_options = {
         "vars": ID_counts,
         "bins": video_pos,
+        "x_tricks": video_names,
         "x_label": "Video Index",
         "y_label": "ID Count",
         "title": "ID Count of Each Video",

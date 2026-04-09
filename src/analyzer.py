@@ -70,7 +70,7 @@ def frame_analysis(dataset_input,dataset_name,save_dir):
     # 3. 计算关于帧信息的统计信息，并输出到文件中
     all_frame_counts = calc_frame_statistics(video_info, save_dir)
     # 4. 绘制帧数的直方图
-    draw_frame_hist(all_frame_counts,save_dir)
+    draw_frame_hist(all_frame_counts,video_info['video_name'],save_dir)
     
     
 def collect_frame_information(frame_folders,dataset_name):
@@ -154,7 +154,7 @@ def calc_frame_statistics(video_info,save_dir):
    
    
 ############################ part 2: 统计每个视频的标注信息 ############################
-def bbox_overall_analyze(anno_files,dataset_name,save_dir,column_defs,show_progress):
+def bbox_overall_analyze(anno_files,dataset_name,save_dir,column_defs,show_progress,is_per_video=False):
     """
     brief:
         获取边界框总体分布的统计特性
@@ -164,6 +164,7 @@ def bbox_overall_analyze(anno_files,dataset_name,save_dir,column_defs,show_progr
         save_dir (str): 计算结果的保存路径
         column_defs (list): 构造结构数组的列名称
         show_progress: 展示边界框相对变化可视化的标志位
+        is_per_video: 统计每段视频的目标物面积比的统计特性
     """
     
     # 1. 将每个视频文件的标注加载到一个结构化数组中。
@@ -176,9 +177,9 @@ def bbox_overall_analyze(anno_files,dataset_name,save_dir,column_defs,show_progr
             if dataset_name == "MDMT":
                 anno = load_annotations_xml(anno_file,column_defs,category_mapping)
             else:
-                anno = load_annotations_txt(anno_file,column_defs)
+                anno = load_annotations_txt(anno_file,column_defs,dataset_name)
             # 获取相应视频的分辨率
-            res = get_video_resolution(anno_file,dataset_name)
+            res,video_path = get_video_resolution(anno_file,dataset_name)
             video_path, frame_dleta = get_frame_dleta(anno,anno_file,dataset_name)
             video_info = {"annos":anno,"res_es":res,"video_path":video_path,"frame_dleta":frame_dleta}
             bbox_idx[idx] = video_info
@@ -189,6 +190,8 @@ def bbox_overall_analyze(anno_files,dataset_name,save_dir,column_defs,show_progr
     if not bbox_idx:
         print("there is no loaded annotations")
         return 
+    
+    video_raw_data = [] if is_per_video else None  # 保存每段视频的(bbox_anno,video_name,res)
             
     # 2. 将该结构化数组关于边界框的列都抽出来，并放到一个普通数组中。
     bbox_annos = []
@@ -199,6 +202,15 @@ def bbox_overall_analyze(anno_files,dataset_name,save_dir,column_defs,show_progr
         bbox_anno = get_bbox(anno,column_defs)
         if bbox_anno is None:
             continue
+
+        if is_per_video:
+            video_raw_data.append({
+            'bbox_anno': bbox_anno,
+            'res': video_info["res_es"],
+            'video_path': video_info["video_path"],
+            'anno': anno,
+            'frame_dleta': video_info["frame_dleta"]
+        })
         
         # 获取anno的id列
         if 'id' in anno.dtype.names and len(np.unique(anno['id'])) > 1:
@@ -258,9 +270,31 @@ def bbox_overall_analyze(anno_files,dataset_name,save_dir,column_defs,show_progr
 
     # # 4.3 针对该数据集的所有边界框，进行面积和宽高比的相关统计实验。
     _, aspect_ratios = calc_anno_area_aspectratio(all_bbox_annos)
-    # # 5. 获取所有边界框的面积占总面积的比例
+    # # 4.4 获取所有边界框的面积占总面积的比例
     rel_areas = calc_anno_rel_area(bbox_annos,bbox_res)   
     visualize_bbox_wh(rel_areas, aspect_ratios, save_dir)
+
+    # 5. 针对每段视频的目标物面积比的统计特性
+    if is_per_video:
+        # ========== 第二阶段：计算视频级统计 ==========
+        video_statistics = {"video": [], "avg": [], "std": [], "max": [], "min": []}
+        
+        for data in video_raw_data:
+            # 计算当前视频的面积比
+            rel_areas = calc_anno_rel_area([data['bbox_anno']], [data['res']])
+
+            video_name = get_video_name(data['video_path'], dataset_name)
+            video_statistics["video"].append(video_name)
+            video_statistics["avg"].append(np.mean(rel_areas))
+            video_statistics["std"].append(np.std(rel_areas))
+            video_statistics["max"].append(np.max(rel_areas))
+            video_statistics["min"].append(np.min(rel_areas))  # 注意：您写成了 max
+        
+        # 保存视频级统计
+        for key in ["avg", "std", "max", "min"]:
+            video_statistics[key] = np.asarray(video_statistics[key])
+        df = pd.DataFrame(video_statistics)
+        df.to_csv(save_dir / "area_per_video.csv", index=False)
     
 
 def calc_anno_rel_area(annos,res_es):
@@ -364,7 +398,7 @@ def bbox_dense_analyze(anno_files,save_dir,column_defs,dataset_name):
       dataset_name:数据集名称
     """
     # 1. 加载每个视频文件对应的标注信息
-    annos = []
+    annos, video_names = [],[] 
     if dataset_name == "MDMT":
         category_mapping, _ = analyze_xml_categories(anno_files)
     for anno_file in anno_files:
@@ -374,7 +408,7 @@ def bbox_dense_analyze(anno_files,save_dir,column_defs,dataset_name):
             anno = load_annotations_txt(anno_file,column_defs,dataset_name)
             
         try:
-            get_video_resolution(anno_file,dataset_name)
+            _, video_path = get_video_resolution(anno_file,dataset_name)
         except Exception as _:
             continue
 
@@ -382,6 +416,8 @@ def bbox_dense_analyze(anno_files,save_dir,column_defs,dataset_name):
             continue
           
         annos.append(anno)
+        video_name = get_video_name(video_path, dataset_name)
+        video_names.append(video_name)
         
     if not annos:
         print("there is no loaded annotations")
@@ -391,17 +427,18 @@ def bbox_dense_analyze(anno_files,save_dir,column_defs,dataset_name):
     save_dir.mkdir(parents=True,exist_ok=True)
     
     # 2. 针对每组视频文件，统计样本数目和ID数目，同时画成条形图并保存。
-    bbox_dense_video(annos,save_dir)
+    bbox_dense_video(annos,video_names,save_dir)
     
     # 3. 对单帧画面的样本数、ID数的分布做统计分析
-    bbox_dense_distribution(annos,save_dir)
+    bbox_dense_distribution(annos,video_names,save_dir)
     
 
-def bbox_dense_video(annos,save_dir):    
+def bbox_dense_video(annos,video_names,save_dir):    
     """
       brief: 针对每组视频文件，统计样本数目和ID数目，同时画成条形图并保存。
       args: 
         annos:每组视频文件对应的标注数组列表
+        video_names:每组视频文件对应的视频名称列表
         save_dir:结果保存路径
     """
     sample_counts,ID_counts = [],[]
@@ -411,18 +448,20 @@ def bbox_dense_video(annos,save_dir):
         unique_id = np.unique(anno["id"])
         ID_count = len(unique_id)
         ID_counts.append(ID_count)
-    visualize_bbox_dense_video(sample_counts,ID_counts,save_dir)
+    visualize_bbox_dense_video(sample_counts,ID_counts,video_names,save_dir)
     
 
-def bbox_dense_distribution(annos,save_dir):
+def bbox_dense_distribution(annos,video_names,save_dir):
     """
       brief:对单帧画面的样本数、ID数做统计分析
       args:
         annos:每组视频文件对应的标注数组列表
+        video_names:每组视频文件对应的视频名称列表
         save_dir:结果保存路径 
     """
     # 1. 处理所有视频帧并进行汇总统计
-    all_sample_counts = calc_dense_statistic(annos,'frame')
+    all_sample_counts = calc_dense_statistic(annos,'frame',\
+                        video_names=video_names,is_per_video=True,save_dir=save_dir)
     
     # 2. 绘制比例分布直方图
     visualize_bbox_dense_distribution(all_sample_counts,save_dir)
@@ -432,29 +471,41 @@ def bbox_dense_distribution(annos,save_dir):
     visualize_class_freq(all_cls_freq,save_dir)
     
     
-def calc_dense_statistic(annos,col_name):
+def calc_dense_statistic(annos,col_name,video_names=None,is_per_video=False,save_dir=None):
     """
     brief:
       处理所有视频标注文件，汇总统计结果
     args:
       annos:每组视频的标注信息
       col_name:考察标注的哪个维度。例如，"frame"、"id"...
+      video_names:每组视频的名称列表
+      is_per_video:是否计算每组视频的统计特性
+      save_dir:基于视频细粒度的统计特性结果保存路径
     """
     all_sample_counts = []
-    
+    video_statistics = {"video":[],"avg":[], "std":[], "max": [], "min":[]} if is_per_video else None
     # 遍历标注目录下的所有文件
-    for anno in annos:
+    for idx, anno in enumerate(annos):
         if len(anno) == 0:
             continue
             
         # 计算当前视频的统计
         sample_counts = calc_bbox_statistic(anno,col_name)
         all_sample_counts.extend(sample_counts)
-    
-    if col_name == 'id':
-        pass
-    else:
-        return np.array(all_sample_counts)
+
+        if is_per_video:
+            video_statistics["video"].append(video_names[idx])
+            video_statistics["avg"].append(np.mean(sample_counts))
+            video_statistics["std"].append(np.std(sample_counts))
+            video_statistics["max"].append(np.max(sample_counts))
+            video_statistics["min"].append(np.min(sample_counts))
+
+    if is_per_video:
+        for key in ["avg", "std", "max", "min"]:
+            video_statistics[key] = np.asarray(video_statistics[key])
+        pd.DataFrame(video_statistics).to_csv(\
+            os.path.join(str(save_dir), "sample_per_video.csv"),index=False)  
+    return np.array(all_sample_counts)
   
   
 def calc_bbox_statistic(annotations,col_name):
@@ -512,7 +563,7 @@ def calc_class_distribution(annos):
 
 ############################### part 5: 针对所有id的轨迹间断分布，轨迹持续时间和运动总位移进行统计分析 ####################################
 class TrajectoryStatistic:
-    def __init__(self,dataset_name,save_dir,is_show):
+    def __init__(self,dataset_name,save_dir,is_show,is_per_video=False):
         """
         brief:
           轨迹统计分析类的初始化
@@ -531,6 +582,7 @@ class TrajectoryStatistic:
         self.frame_dleta = 0  # 实际图像序号和标注帧号的增量
         self.id = 0
         self.traj_idx = 0
+        self.is_per_video = is_per_video  # 是否计算并保存每段视频的统计特性
         
     def bbox_trajectory_analyze(self,anno_files,column_defs):
         """
@@ -565,6 +617,18 @@ class TrajectoryStatistic:
             if self.is_show:
                 self.video_path,self.frame_dleta = \
                     get_frame_dleta(anno,anno_file,self.dataset_name)
+                
+        if self.is_per_video:
+            # 使用辅助函数初始化所有统计字典
+            def init_stats_dict():
+                return {"video": [], "avg": [], "std": [], "max": [], "min": []}
+            stats_dicts = {
+                'traj_num': init_stats_dict(),
+                'lief_long': init_stats_dict(),
+                'dist': init_stats_dict(),
+                'iou': init_stats_dict(),
+                'gap': init_stats_dict()
+            }
             
         # 2. 将每组视频文件下每个ID的轨迹间断数、持续时间和运动总位移
         all_traj_num,all_lief_long,all_dist,all_iou,all_gap = [],[],[],[],[]
@@ -572,6 +636,25 @@ class TrajectoryStatistic:
             video_traj_num,video_lief_long,\
                 video_dist,video_iou,video_gaps = \
                 self.get_trajectory_statistic(anno_file,anno)
+            
+            if self.is_per_video:
+                _,video_path = get_video_resolution(anno_file,self.dataset_name)
+                video_name = get_video_name(video_path,self.dataset_name)
+                 # 定义更新函数
+                def update_stats(stats, values):
+                    if len(values) == 0:
+                        return
+                    stats["video"].append(video_name)
+                    stats["avg"].append(np.mean(values))
+                    stats["std"].append(np.std(values))
+                    stats["max"].append(np.max(values))
+                    stats["min"].append(np.min(values))
+                update_stats(stats_dicts['traj_num'], video_traj_num)
+                update_stats(stats_dicts['lief_long'], video_lief_long)
+                update_stats(stats_dicts['dist'], video_dist)
+                update_stats(stats_dicts['iou'], video_iou)
+                update_stats(stats_dicts['gap'], video_gaps)
+
             all_traj_num.extend(video_traj_num)
             all_lief_long.extend(video_lief_long)
             all_dist.extend(video_dist)
@@ -588,6 +671,18 @@ class TrajectoryStatistic:
         if self.is_show:
             visualize_traj(self.anno_ids,self.save_dir,self.dataset_name,
                            column_defs,self.category_mapping)
+        # 5. 将每段视频的统计特性保存到csv文件中
+        if self.is_per_video:
+            def save_stats_to_csv(stats, filename):
+                for key in ["avg", "std", "max", "min"]:
+                    stats[key] = np.asarray(stats[key])
+                df = pd.DataFrame(stats)
+                df.to_csv(self.save_dir / "trajectory_statistics"/filename, index=False)
+            save_stats_to_csv(stats_dicts['traj_num'], "video_traj_num.csv")
+            save_stats_to_csv(stats_dicts['lief_long'], "video_lief_long.csv")
+            save_stats_to_csv(stats_dicts['dist'], "video_dist.csv")
+            save_stats_to_csv(stats_dicts['iou'], "video_iou.csv")
+            save_stats_to_csv(stats_dicts['gap'], "video_gap.csv")
   
     def get_trajectory_statistic(self,anno_file,anno):
         """
@@ -940,10 +1035,10 @@ def MOT_analysis_steps(options):
     bbox_dense_analyze(anno_files,save_dir,column_defs,dataset_name)
     
     # 2. 计算边界框的整体分布统计特性
-    bbox_overall_analyze(anno_files,dataset_name,save_dir,column_defs,show_progress)
+    bbox_overall_analyze(anno_files,dataset_name,save_dir,column_defs,show_progress,is_per_video=True)
     
     # 3. 计算所有id的轨迹间断分布，轨迹持续时间和运动总位移。
-    traj_stat = TrajectoryStatistic(dataset_name,save_dir,show_progress)
+    traj_stat = TrajectoryStatistic(dataset_name,save_dir,show_progress,is_per_video=True)
     traj_stat.bbox_trajectory_analyze(anno_files,column_defs)
     
 
@@ -974,7 +1069,7 @@ def SOT_analysis_steps(dataset_input,anno_files,dataset_name,args):
     ]
     
     # 3. 计算边界框的整体分布统计特性
-    bbox_overall_analyze(anno_files,dataset_name,save_dir,column_defs,args.show_process)
+    bbox_overall_analyze(anno_files,dataset_name,save_dir,column_defs,args.show_process,is_per_video=True)
     
     # 4. 计算所有id的轨迹间断分布，轨迹持续时间和运动总位移。
     traj_stat = TrajectoryStatistic(dataset_name,save_dir,args.show_process)
