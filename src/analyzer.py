@@ -620,14 +620,17 @@ class TrajectoryStatistic:
                 
         if self.is_per_video:
             # 使用辅助函数初始化所有统计字典
-            def init_stats_dict():
-                return {"video": [], "avg": [], "std": [], "max": [], "min": []}
+            def init_stats_dict(key):
+                init_dict =  {"video": [], "avg": [], "std": [], "max": [], "min": []}
+                if key == 'iou':
+                    init_dict.update({"non_lap":[]})
+                return init_dict
             stats_dicts = {
-                'traj_num': init_stats_dict(),
-                'lief_long': init_stats_dict(),
-                'dist': init_stats_dict(),
-                'iou': init_stats_dict(),
-                'gap': init_stats_dict()
+                'traj_num': init_stats_dict('traj_num'),
+                'lief_long': init_stats_dict('lief_long'),
+                'dist': init_stats_dict('dist'),
+                'iou': init_stats_dict('iou'),
+                'gap': init_stats_dict('gap')
             }
             
         # 2. 将每组视频文件下每个ID的轨迹间断数、持续时间和运动总位移
@@ -641,7 +644,7 @@ class TrajectoryStatistic:
                 _,video_path = get_video_resolution(anno_file,self.dataset_name)
                 video_name = get_video_name(video_path,self.dataset_name)
                  # 定义更新函数
-                def update_stats(stats, values):
+                def update_stats(stats, values, key):
                     if len(values) == 0:
                         return
                     stats["video"].append(video_name)
@@ -649,11 +652,14 @@ class TrajectoryStatistic:
                     stats["std"].append(np.std(values))
                     stats["max"].append(np.max(values))
                     stats["min"].append(np.min(values))
-                update_stats(stats_dicts['traj_num'], video_traj_num)
-                update_stats(stats_dicts['lief_long'], video_lief_long)
-                update_stats(stats_dicts['dist'], video_dist)
-                update_stats(stats_dicts['iou'], video_iou)
-                update_stats(stats_dicts['gap'], video_gaps)
+                    if key == 'iou':
+                        non_lap_count = np.sum(np.array(values) < -1e-6)  # 计算非重叠的比例
+                        stats["non_lap"].append(non_lap_count / len(values))
+                update_stats(stats_dicts['traj_num'], video_traj_num, 'traj_num')
+                update_stats(stats_dicts['lief_long'], video_lief_long, 'lief_long')
+                update_stats(stats_dicts['dist'], video_dist, 'dist')
+                update_stats(stats_dicts['iou'], video_iou, 'iou')
+                update_stats(stats_dicts['gap'], video_gaps, 'gap')
 
             all_traj_num.extend(video_traj_num)
             all_lief_long.extend(video_lief_long)
@@ -673,16 +679,18 @@ class TrajectoryStatistic:
                            column_defs,self.category_mapping)
         # 5. 将每段视频的统计特性保存到csv文件中
         if self.is_per_video:
-            def save_stats_to_csv(stats, filename):
+            def save_stats_to_csv(stats, filename, ori_key):
                 for key in ["avg", "std", "max", "min"]:
                     stats[key] = np.asarray(stats[key])
+                if ori_key == 'iou':
+                    stats["non_lap"] = np.asarray(stats["non_lap"])
                 df = pd.DataFrame(stats)
                 df.to_csv(self.save_dir / "trajectory_statistics"/filename, index=False)
-            save_stats_to_csv(stats_dicts['traj_num'], "video_traj_num.csv")
-            save_stats_to_csv(stats_dicts['lief_long'], "video_lief_long.csv")
-            save_stats_to_csv(stats_dicts['dist'], "video_dist.csv")
-            save_stats_to_csv(stats_dicts['iou'], "video_iou.csv")
-            save_stats_to_csv(stats_dicts['gap'], "video_gap.csv")
+            save_stats_to_csv(stats_dicts['traj_num'], "video_traj_num.csv",'traj_num')
+            save_stats_to_csv(stats_dicts['lief_long'], "video_lief_long.csv",'lief_long')
+            save_stats_to_csv(stats_dicts['dist'], "video_dist.csv", 'dist')
+            save_stats_to_csv(stats_dicts['iou'], "video_iou.csv", 'iou')
+            save_stats_to_csv(stats_dicts['gap'], "video_gap.csv", 'gap')
   
     def get_trajectory_statistic(self,anno_file,anno):
         """

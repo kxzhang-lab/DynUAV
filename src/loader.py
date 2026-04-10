@@ -454,7 +454,7 @@ def detect_column_defs(valid_lines,video_name):
     
     # 特殊情况：026视频的第一列全是-1，个人理解为该视频只有一个ID。因此第一列是ID，第二列是frame。
     if all(val == -1 for val in first_col_values):
-        print(f"视频 {video_name} 的第一列全为-1，判断为 (id, frame, ...)")
+        # print(f"视频 {video_name} 的第一列全为-1，判断为 (id, frame, ...)")
         return [
             ('id', 'i4'), ('frame', 'i4'),
             ('x', 'f4'), ('y', 'f4'), ('w', 'f4'), ('h', 'f4'),
