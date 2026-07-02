@@ -32,6 +32,8 @@ def make_parser():
     parser.add_argument("--mode", type=str, default="test", help="Should be 'test' to avoid evaluation")
     parser.add_argument("--vid_names", type=str, default=None,
                         help="Comma-separated sequence names. If omitted, all sequences in the pickle are used.")
+    parser.add_argument("--disable_cmc", action='store_true',
+                        help="Disable camera motion compensation and use identity transforms.")
     parser.add_argument("--seed", type=float, default=10000)
 
     # --- Post-Processing ---
