@@ -1,4 +1,4 @@
-# DynUAV TrackTrack Baseline
+# DynUAV Baseline
 
 This repository provides the TrackTrack baseline for **DynUAV**, a UAV-perspective multi-object tracking benchmark introduced in:
 
