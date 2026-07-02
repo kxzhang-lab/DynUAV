@@ -2,8 +2,13 @@ import pickle
 import numpy as np
 
 class CMC:
-    def __init__(self, vid_name):
+    def __init__(self, vid_name, enabled=True):
         super(CMC, self).__init__()
+
+        if not enabled:
+            print(f"Info: CMC disabled for video: {vid_name}")
+            self.gmcFile = None
+            return
 
         if 'MOT17' in vid_name:
             vid_name = vid_name.split('-FRCNN')[0]
