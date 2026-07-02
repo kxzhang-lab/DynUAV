@@ -1,0 +1,64 @@
+cff-version: 1.2.0
+title: "DynUAV TrackTrack Baseline"
+message: "If you use DynUAV or this baseline, please cite the DynUAV CVPR 2026 paper and the TrackTrack CVPR 2025 paper."
+type: software
+authors:
+  - family-names: Ye
+    given-names: Jingtao
+  - family-names: Zhang
+    given-names: Kexin
+  - family-names: Ma
+    given-names: Xunchi
+  - family-names: Li
+    given-names: Yuehan
+  - family-names: Zhu
+    given-names: Guangming
+  - family-names: Shen
+    given-names: Peiyi
+  - family-names: Jiang
+    given-names: Linhua
+  - family-names: Zhang
+    given-names: Xiangdong
+  - family-names: Zhang
+    given-names: Liang
+date-released: "2026-07-02"
+license: MIT
+references:
+  - type: conference-paper
+    title: "Breaking Smooth-Motion Assumptions: A UAV Benchmark for Multi-Object Tracking in Complex and Adverse Conditions"
+    authors:
+      - family-names: Ye
+        given-names: Jingtao
+      - family-names: Zhang
+        given-names: Kexin
+      - family-names: Ma
+        given-names: Xunchi
+      - family-names: Li
+        given-names: Yuehan
+      - family-names: Zhu
+        given-names: Guangming
+      - family-names: Shen
+        given-names: Peiyi
+      - family-names: Jiang
+        given-names: Linhua
+      - family-names: Zhang
+        given-names: Xiangdong
+      - family-names: Zhang
+        given-names: Liang
+    conference:
+      name: "IEEE/CVF Conference on Computer Vision and Pattern Recognition"
+    year: 2026
+  - type: conference-paper
+    title: "Focusing on Tracks for Online Multi-Object Tracking"
+    authors:
+      - family-names: Shim
+        given-names: Kyujin
+      - family-names: Ko
+        given-names: Kangwook
+      - family-names: Yang
+        given-names: Yujin
+      - family-names: Kim
+        given-names: Changick
+    conference:
+      name: "IEEE/CVF Conference on Computer Vision and Pattern Recognition"
+    year: 2025

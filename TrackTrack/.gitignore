@@ -1,0 +1,55 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# Editors and OS files
+.DS_Store
+.idea/
+.vscode/
+
+# Environments
+.env
+.venv/
+venv/
+env/
+
+# Logs and training outputs
+logs/
+wandb/
+runs/
+tensorboard/
+output/
+outputs/
+Tracker/outputs/
+FastReID/logs/
+YOLOX/YOLOX_outputs/
+
+# Large generated artifacts
+*.pickle
+*.pkl
+*.pt
+*.pth
+*.pth.tar
+*.ckpt
+*.onnx
+*.engine
+*.tar
+*.tar.gz
+*.zip
+
+# Keep placeholder files for expected artifact folders.
+!YOLOX/weights/
+!YOLOX/weights/empty
+!YOLOX/jsons/
+!YOLOX/jsons/empty
+!FastReID/weights/
+!FastReID/weights/empty
+
+# Local scratch scripts from development.
+1.py
+2.py
