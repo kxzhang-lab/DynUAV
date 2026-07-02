@@ -15,7 +15,7 @@ class Tracker(object):
         self.counter = TrackCounter()
 
         # Set global motion compensation model
-        self.cmc = CMC(vid_name)
+        self.cmc = CMC(vid_name, enabled=not getattr(args, 'disable_cmc', False))
 
     def init_tracks(self, dets):
         # Get alive tracks, iou_similarity, and scores
