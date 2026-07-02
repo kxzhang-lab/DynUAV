@@ -74,13 +74,13 @@ FastReID/dyn.pickle
 
 This file contains the DynUAV detections and ReID embeddings used by our TrackTrack baseline. We generated it following the original TrackTrack-style detection and FastReID feature extraction pipeline; YOLOX and FastReID details are therefore not required for reproducing the reported tracking result.
 
-Because `dyn.pickle` is large, it is intentionally excluded from Git. Please download it separately and place it at `FastReID/dyn.pickle`.
-
-The Google Drive link for `dyn.pickle` will be added after upload.
+Because `dyn.pickle` is large, it is intentionally excluded from Git. Please download it from [Google Drive](https://drive.google.com/file/d/1aOONn_-1u6tgc0n-VvVViiGWmg4nZ7bZ/view?usp=sharing) and place it at `FastReID/dyn.pickle`.
 
 ## Run
 
 From the repository root:
+
+With camera motion compensation (CMC):
 
 ```bash
 cd Tracker
@@ -88,31 +88,48 @@ python run_ours.py \
   --data_dir "$DYN_UAV_ROOT/test" \
   --pickle_path "../FastReID/dyn.pickle" \
   --pickle_path_95 "../FastReID/dyn.pickle" \
-  --output_dir "../outputs/3_track/dynuav_test" \
+  --output_dir "../outputs/3_track/dynuav_test_cmc" \
   --dataset "DynUAV" \
   --mode "test" \
   --vid_names "004,009,016,027,029,055,067"
 cd ..
 ```
 
+Without CMC:
+
+```bash
+cd Tracker
+python run_ours.py \
+  --data_dir "$DYN_UAV_ROOT/test" \
+  --pickle_path "../FastReID/dyn.pickle" \
+  --pickle_path_95 "../FastReID/dyn.pickle" \
+  --output_dir "../outputs/3_track/dynuav_test_no_cmc" \
+  --dataset "DynUAV" \
+  --mode "test" \
+  --vid_names "004,009,016,027,029,055,067" \
+  --disable_cmc
+cd ..
+```
+
 Results are saved to:
 
 ```text
-outputs/3_track/dynuav_test/dyn/
+outputs/3_track/dynuav_test_cmc/dyn/
 |-- 004.txt
 |-- 009.txt
 |-- ...
 ```
 
-CMC files for the DynUAV test sequences are provided in `Tracker/trackers/cmc/`.
+CMC files for the DynUAV test sequences are provided in `Tracker/trackers/cmc/`. By default, `run_ours.py` loads these CMC files when available; `--disable_cmc` forces identity transforms.
 
 ## Result
 
-The following TrackTrack result on the DynUAV test set is reported in the paper. All metrics except IDSW and IDs are percentages.
+The following TrackTrack results on the DynUAV test set are reported in the paper. All metrics except IDSW and IDs are percentages.
 
-| Tracker | FP | FN | DetA | MOTA | HOTA | IDF1 | AssA | IDSW | IDs |
-|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| TrackTrack | 15617 | 71034 | 57.65 | 66.95 | 62.74 | 74.81 | 68.89 | 256 | 1125 |
+| Tracker | CMC | FP | FN | DetA | MOTA | HOTA | IDF1 | AssA | IDSW | IDs |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| TrackTrack | No | 15030 | 75740 | 56.30 | 65.31 | 60.64 | 71.04 | 65.95 | 439 | 1343 |
+| TrackTrack | Yes | 15617 | 71034 | 57.65 | 66.95 | 62.74 | 74.81 | 68.89 | 256 | 1125 |
 
 ## Acknowledgement
 
