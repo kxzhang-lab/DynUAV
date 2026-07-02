@@ -41,7 +41,7 @@ Install PyTorch according to your own CUDA version.
 Download DynUAV from:
 
 - Baidu Netdisk: [DynUAV](https://pan.baidu.com/share/init?surl=ExzMaawct6Igwpi34aiDXQ&pwd=FFLU) (code: `FFLU`)
-- Hugging Face: coming soon
+- Hugging Face: [riverjh/DynUAV](https://huggingface.co/riverjh/DynUAV)
 
 Set the DynUAV dataset root:
 
