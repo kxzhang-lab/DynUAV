@@ -1,4 +1,4 @@
-# DynUAV
+# DynUAV TrackTrack Baseline
 
 This repository provides the TrackTrack baseline for **DynUAV**, a UAV-perspective multi-object tracking benchmark introduced in:
 
@@ -63,6 +63,14 @@ Expected test-set layout:
 |-- 055
 |-- 067
 ```
+
+## Pretrained Detection Model
+
+We release our trained detection model for DynUAV to support generating detections and further research.
+
+- Download: [Google Drive](https://drive.google.com/file/d/1fV-8UaFfMn_CCC4-qzRaKVIwAQtfX0Nn/view?usp=sharing)
+
+The detection model is optional for reproducing the reported TrackTrack results: you can directly use the precomputed detections and ReID embeddings described below without running the detector again.
 
 ## Precomputed Features
 
